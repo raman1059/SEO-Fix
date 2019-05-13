@@ -1,0 +1,72 @@
+
+var htmlTags = []
+
+var x = document.querySelectorAll('*');
+
+x.forEach(function(i) {
+  
+
+        htmlTags.push(i.nodeName)
+  
+   });
+
+var result = keyCounter(htmlTags);
+
+//---------------------------------------------------------------
+
+var htmlMissingTags = [];
+var htmlMissingTagsCode = [];
+
+var x2 = document.querySelectorAll('*');
+
+x2.forEach(function(i) {
+  
+
+	if(i.nodeName === "IMG"){
+		if(i.alt === ""){
+			htmlMissingTagsCode.push(i.outerHTML);
+		}
+	}
+
+   });
+
+//---------------------------------------------------------------
+
+function keyCounter(arr) {
+    var a = [], b = [], prev;
+    
+    arr.sort();
+    for ( var i = 0; i < arr.length; i++ ) {
+        if ( arr[i] !== prev ) {
+            a.push(arr[i]);
+            b.push(1);
+        } else {
+            b[b.length-1]++;
+        }
+        prev = arr[i];
+    }
+    
+    return [a, b];
+}
+
+
+//---------------------------------------------------------------
+
+var metaTagPresent = false;
+
+var x3 = document.querySelectorAll('*');
+
+x.forEach(function(i) {
+  
+
+       if(i.nodeName === 'META') {
+         metaTagPresent = true;
+       } 
+   });
+
+//---------------------------------------------------------------
+
+var result = keyCounter(htmlTags);
+
+var obj = {AllKeyWords: result[0], KeywordCount: result[1], MissingAttibs: htmlMissingTagsCode, metaTag: metaTagPresent }
+JSON.stringify(obj)
